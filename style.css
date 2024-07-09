@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+}
+canvas {
+  display: block;
+}
+
+
+.three-container{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index:1;
+}
+.controls {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  z-index:3;
+}
+.camera-info {
+  margin-top: 10px;
+}
+button {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.info-container {
+  /* background-color: #fff; */
+  position: absolute;
+  left:20%;
+  background: transparent no-repeat;
+  background-size: contain;
+  background-image: url(bg.jpg);
+  border-radius: 7px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 700px;
+  height: auto;
+  padding: 20px;
+  margin-top: 100px;
+  position: relative;
+  text-align: right;
+  z-index: 2;
+  /* stroke: 1px; */
+}
+.container h1 {
+  font-family: "Ultra", serif;
+  font-size: 36px;
+  color: #333;
+  margin: 0;
+}
+.container .description {
+  font-size: 16px;
+  color: #666;
+  margin: 10px 0;
+}
+.persimmon-images {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  position: relative;
+}
+.persimmon-images img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.attributes {
+  margin: 20px 0;
+}
+.attribute {
+  text-align: right;
+  margin-bottom: 20px;
+}
+.attribute h2 {
+  font-family: "Ultra", serif;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+  display: inline-block;
+  background-color: #ffa500;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.attribute p {
+  color: #413f39;
+
+  text-align: right;
+  font-family: "Roboto Mono", monospace;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 131%;
+  /* font-size: 14px;
+          color: #666; */
+}
+
+.description {
+  color: #413f39;
+
+  text-align: right;
+  font-family: "Roboto Mono", monospace;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 131%;
+  /* font-size: 14px;
+          color: #666; */
+}

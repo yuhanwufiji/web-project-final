@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load Multiple GLB Files Example</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #canvas-container {
+            width: 100%;
+            height: 100vh;
+        }
+        #popup {
+            display: none;
+            position: absolute;
+            top: 40%;
+            left: 35%;
+            height: 20%;
+            width: 30%;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgba(233, 137, 47, 0.533);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="popup">This is a popup for the fruit model.</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/GammaCorrectionShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/ToneMapShader.js"></script>
+    <script>
+        // 创建场景
+            // 创建场景
+            const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x87CEEB);
+        
+        // 创建相机
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const initialCameraPosition = new THREE.Vector3(0.1, 10.58, 15);
+        camera.position.copy(initialCameraPosition);
+
+        // 调整相机的视角
+        camera.fov = 50;
+        camera.updateProjectionMatrix();
+
+        // 创建渲染器
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio); // 增加分辨率
+        renderer.shadowMap.enabled = true; // 启用阴影
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 使用柔和阴影
+        renderer.toneMapping = THREE.ReinhardToneMapping; // 设置色调映射
+        renderer.toneMappingExposure = 10; // 增加曝光
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // 创建后处理效果
+        const composer = new THREE.EffectComposer(renderer);
+        const renderPass = new THREE.RenderPass(scene, camera);
+        composer.addPass(renderPass);
+
+        const bloomPass = new THREE.UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            1.5, 0.4, 0.85
+        );
+        bloomPass.threshold = 0;
+        bloomPass.strength = 1.5;
+        bloomPass.radius = 0;
+        composer.addPass(bloomPass);
+
+        const gammaCorrectionPass = new THREE.ShaderPass(THREE.GammaCorrectionShader);
+        composer.addPass(gammaCorrectionPass);
+
+        // 创建 GLTFLoader 实例
+        const loader = new THREE.GLTFLoader();
+
+        // 用于存储所有加载的模型
+        const models = [];
+        // 加载多个 GLB 文件并设置不同位置
+        const modelFiles = [
+            { file: '5.glb', position: { x: 0, y: 0, z: 0 } },
+           
+        ];
+
+        modelFiles.forEach((modelInfo, index) => {
+            loader.load(
+                modelInfo.file,
+                function (gltf) {
+                    const model = gltf.scene;
+                    model.position.set(modelInfo.position.x, modelInfo.position.y, modelInfo.position.z);
+                    model.scale.set(1, 1, 1); // 根据需要调整模型缩放
+                    
+                    // 设置 userData
+                    model.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            child.userData.fileName = modelInfo.file;
+                            // 调整材质
+                            if (child.material) {
+                                child.material.roughness = 0.1;
+                                child.material.metalness = 0.1;
+                            }
+                        }
+                    });
+
+                    scene.add(model);
+                    models.push(model);
+
+                    // 在这里调整摄像头和目标位置
+
+                },
+                function (xhr) {
+                    console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+                },
+                function (error) {
+                    console.error('Error loading GLB file:', error);
+                }
+            );
+        });
+
+        // 创建 OrbitControls 实例
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // 启用阻尼效果（惯性）
+        controls.dampingFactor = 0.25;
+        controls.screenSpacePanning = false;
+        controls.minDistance = 1;
+        controls.maxDistance = 10;
+        controls.maxPolarAngle = Math.PI / 2;
+        // 动画循环
+        let lastLogTime = 0;
+        function animate(time) {
+            requestAnimationFrame(animate);
+            controls.update(); // 仅当启用阻尼或自动旋转时需要
+            TWEEN.update();
+            renderer.render(scene, camera);
+
+            // 每秒记录一次摄像机的位置和方向
+            if (time - lastLogTime > 1000) {
+                console.log(`Camera position: (${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)})`);
+                console.log(`Camera target: (${controls.target.x.toFixed(2)}, ${controls.target.y.toFixed(2)}, ${controls.target.z.toFixed(2)})`);
+                lastLogTime = time;
+            }
+        }
+        animate();
+
+        // 响应窗口大小变化
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Raycaster 用于检测点击的对象
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onMouseClick(event) {
+            const popup = document.getElementById('popup');
+            if (!popup.contains(event.target)) {
+                hidePopup();
+                moveCameraToInitialPosition();
+            }
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects(models, true);
+
+            if (intersects.length > 0) {
+                const selectedObject = intersects[0].object;
+                console.log('Selected object:', selectedObject.userData.fileName); // 调试信息
+
+                // 检查是否点击的是fruit.glb模型
+                if (selectedObject.userData.fileName === 'fruit.glb') {
+                    moveCameraToObject(selectedObject, showPopup);
+                }
+            } else {
+                console.log('No intersection detected'); // 调试信息
+            }
+        }
+
+        function moveCameraToObject(object, callback) {
+            const targetPosition = new THREE.Vector3();
+            object.getWorldPosition(targetPosition);
+
+            const offset = new THREE.Vector3(0.037, 1, 0.5); // 偏移量，可以根据需要调整
+            const newPosition = targetPosition.clone().add(offset);
+
+            // 创建 TWEEN 动画
+            new TWEEN.Tween(camera.position)
+                .to({ x: newPosition.x, y: newPosition.y, z: newPosition.z }, 2000) // 2秒的动画时间
+                .easing(TWEEN.Easing.Quadratic.InOut)
+                .onComplete(callback)
+                .start();
+
+            // 更新 OrbitControls 的目标位置
+            new TWEEN.Tween(controls.target)
+                .to({ x: targetPosition.x, y: targetPosition.y, z: targetPosition.z }, 2000)
+                .easing(TWEEN.Easing.Quadratic.InOut)
+                .onUpdate(() => controls.update())
+                .start();
+        }
+
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'block';
+        }
+
+        function hidePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+
+        window.addEventListener('click', onMouseClick, false);
+    </script>
+</body>
+</html>
