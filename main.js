@@ -91,9 +91,9 @@ function init() {
   dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/'); // 设置 Draco 解码器路径
 
   const loader = new GLTFLoader();
-  loader.setDRACOLoader(dracoLoader);
+  // loader.setDRACOLoader(dracoLoader);
   loader.load(
-    "output.glb",
+    "7.10.glb",
     function (gltf) {
       model = gltf.scene;
       model.traverse((child) => {
@@ -186,11 +186,12 @@ function onMouseClick(event) {
     const intersectedObject = intersects[0].object;
     console.log(intersectedObject.name); // 输出被点击对象的名称
     // Check if the clicked object is the specific model
+    if (intersectedObject.name === '收银') {
+      // alert("clicked");
+      showInfoDiv(camera);
+    }
   }
-  if (intersectedObject.name === "zhuozil") {
-    // alert("clicked");
-    showInfoDiv(camera);
-  }
+  
 }
 
 function onMoveButtonClick() {
