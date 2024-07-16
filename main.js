@@ -20,6 +20,7 @@ const loadingDiv = document.getElementById("loading");
 const startPage = document.getElementById("startingpage");
 const videoOverlay = document.getElementById("videoOverlay");
 const introVideo = document.getElementById("introVideo");
+const threeContainer = document.getElementById("three-container");
 
 window.addEventListener("load", () => {
   // Notify iframe to start loading
@@ -35,14 +36,9 @@ button.addEventListener("mouseout", () => {
 
 button.addEventListener("click", () => {
   startPage.style.display = "none";
-  // Send message to iframe to start loading nextpage
-  // window.location.href = "nextpage.html";
-});
-
-button.addEventListener("click", () => {
-  startPage.style.display = "none";
   videoOverlay.style.display = "flex";
   introVideo.play();
+  threeContainer.style.display = "flex";
 });
 
 introVideo.addEventListener("ended", () => {
@@ -53,9 +49,6 @@ init();
 animate();
 
 function init() {
-  const container = document.createElement("div");
-  container.className = "three-container";
-  document.body.appendChild(container);
 
   // Scene
   scene = new THREE.Scene();
@@ -69,7 +62,8 @@ function init() {
   renderer.toneMapping = THREE.ReinhardToneMapping; // 设置色调映射
   renderer.toneMappingExposure = 10; // 增加曝光
   renderer.outputEncoding = THREE.sRGBEncoding;
-  container.appendChild(renderer.domElement);
+  threeContainer.appendChild(renderer.domElement);
+  const targetLookAt2 = new THREE.Vector3(-2.3, 1, -0.7);
 
   // Camera
   camera = new THREE.PerspectiveCamera(
@@ -79,7 +73,7 @@ function init() {
     2000
   );
   camera.position.set(5.04, 1.03, -1.53);
-  camera.rotation.set(0, 14.29, 0);
+  camera.lookAt(targetLookAt2);
   lastCameraPosition.copy(camera.position);
 
   // Raycaster
@@ -88,12 +82,12 @@ function init() {
 
   // Configure and load GLTF model with DRACOLoader
   const dracoLoader = new DRACOLoader();
-  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/'); // 设置 Draco 解码器路径
+  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
 
   const loader = new GLTFLoader();
-  loader.setDRACOLoader(dracoLoader);
+  // loader.setDRACOLoader(dracoLoader);
   loader.load(
-    "output.glb",
+    "7.10.glb",
     function (gltf) {
       model = gltf.scene;
       model.traverse((child) => {
@@ -114,7 +108,9 @@ function init() {
       loadingDiv.style.display = "none";
     },
     function (xhr) {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+      const progress = (xhr.loaded / xhr.total) * 100;
+      progressText.textContent = Math.round(progress) + '%';
+      console.log(progress + '% loaded');
     },
     undefined,
     function (error) {
@@ -155,6 +151,9 @@ function init() {
   // Handle window resize
   window.addEventListener("resize", onWindowResize, false);
 
+  // Mouse move event listener
+  window.addEventListener("mousemove", onMouseMove, false);
+
   // Mouse click event listener
   window.addEventListener("click", onMouseClick, false);
 
@@ -184,29 +183,44 @@ function onMouseClick(event) {
 
   if (intersects.length > 0) {
     const intersectedObject = intersects[0].object;
-    console.log(intersectedObject.name); // 输出被点击对象的名称
+    console.log(intersectedObject); // 输出被点击对象的名称
     // Check if the clicked object is the specific model
+    if (intersectedObject.name === 'zhuozil') {
+      // alert("clicked");
+      showInfoDiv(camera);
+    }
   }
-  if (intersectedObject.name === "zhuozil") {
-    // alert("clicked");
-    showInfoDiv(camera);
-  }
+  
 }
 
-function onMoveButtonClick() {
-  gsap.to(camera.position, {
-    duration: 2,
-    x: 10, // 设置新的x位置
-    y: 5, // 设置新的y位置
-    z: -5, // 设置新的z位置
-    onUpdate: function() {
-      camera.lookAt(scene.position);
-    },
-    onComplete: function() {
-      lastCameraPosition.copy(camera.position);
-    }
-  });
+function onMouseMove(event) {
+  // Define a sensitivity factor
+  const sensitivity = 0.1; // 调整这个值以改变灵敏度
+
+  // Normalize mouse coordinates to [-1, 1]
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Convert normalized coordinates to world coordinates
+  const vector = new THREE.Vector3(mouse.x * sensitivity, mouse.y * sensitivity, 0.5); // 乘以灵敏度因子
+  vector.unproject(camera);
+  const dir = vector.sub(camera.position).normalize();
+  const distance = -camera.position.z / dir.z;
+  const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+
+  // Limit pos within specific ranges
+  const minX = -10, maxX = 0;
+  const minY = -1, maxY = 1;
+  const minZ = -2, maxZ = 2;
+  
+  pos.x = Math.max(minX, Math.min(maxX, pos.x));
+  pos.y = Math.max(minY, Math.min(maxY, pos.y));
+  pos.z = Math.max(minZ, Math.min(maxZ, pos.z));
+
+  // Update camera lookAt
+  camera.lookAt(pos);
 }
+
 
 function animate() {
   requestAnimationFrame(animate);

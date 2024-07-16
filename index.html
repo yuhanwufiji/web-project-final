@@ -4,28 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Full Screen Video Player with Fixed Button</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="loading">
         <video autoplay muted loop>
-            <source src="output6.webm" type="video/webm" />
+            <source src="loading.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
+          <div id="progressText">0%</div>
     </div>
-    <div class="starting" id="startingpage"> 
+
+    <div class="starting" id="startingpage">
       <video id="foregroundVideoContainer" autoplay muted loop>
-        <source src="scene.webm" type="video/webm" />
+        <!-- <source src="scene.webm" type="video/webm" /> -->
         Your browser does not support the video tag.
       </video>
 
       <video id="backgroundVideo" muted>
-        <source src="resturant.webm" type="video/webm" />
+        <!-- <source src="resturant.webm" type="video/webm" /> -->
         Your browser does not support the video tag.
       </video>
 
-      <video autoplay muted >
-        <source src="opening.webm" type="video/webm" />
+      <video id="opening" autoplay muted>
+        <!-- <source src="opening.webm" type="video/webm" /> -->
         Your browser does not support the video tag.
       </video>
 
@@ -35,13 +37,52 @@
     </div>
 
     <div id="videoOverlay">
-        <video id="introVideo">
-            <source src="output6.webm" type="video/webm" />
-            Your browser does not support the video tag.
-        </video>
+      <video id="introVideo" muted>
+        <!-- <source src="next.webm" type="video/webm" /> -->
+        Your browser does not support the video tag.
+      </video>
     </div>
+
+    <div class="info-container" id="info-container" style="display: none">
+      <h1>Persimmons</h1>
+      <p class="description">
+        the sweet fruit of autumn and winter in China, are known as the
+        "sunshine of fruits."
+      </p>
+      <div class="persimmon-images"></div>
+      <div class="circle"></div>
+      <div class="attributes">
+        <div class="attribute">
+          <h2>Look</h2>
+          <p>
+            vibrant orange-red color and round adorable shape<br />they are a
+            delight to the eyes
+          </p>
+        </div>
+        <div class="attribute">
+          <h2>Nutrition</h2>
+          <p>
+            They have a unique texture—smooth, delicate sweet but not
+            cloying—and are rich in nutrients including vitamin C, fiber, and
+            antioxidants
+          </p>
+        </div>
+        <div class="attribute">
+          <h2>Taste</h2>
+          <p>
+            Each bite is a taste of autumn, bringing the joy of harvest. Crisp
+            and refreshing when eaten fresh, sweet as honey when ripe persimmons
+            can also be made into dried persimmons, persimmon jam, and various
+            other delicacies
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="three-container" id="three-container"></div>
     <!-- Hidden iframe to preload the next page -->
     <!-- <script type="module" src="./startpage.js"></script> -->
     <script type="module" src="./main.js"></script>
+    <script src="video-loader.js"></script>
   </body>
 </html>
