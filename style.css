@@ -142,7 +142,7 @@ button {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 20;
+  z-index: 19;
 }
 
 .persimmon-images {
