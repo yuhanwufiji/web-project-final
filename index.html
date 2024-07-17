@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Full Screen Video Player with Fixed Button</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ultra&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
 
     <!-- 这边是弹出层的style和js code -->
@@ -48,11 +54,12 @@
     </div>
 
     <div id="loading">
-        <video autoplay muted loop>
-            <source src="loading.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-          <div id="progressText">0%</div>
+      <video autoplay muted loop>
+        <source src="loading.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="loadingText">Savor the taste</div>
+      <div id="progressText">0%</div>
     </div>
 
     <div class="starting" id="startingpage">
@@ -66,7 +73,7 @@
         Your browser does not support the video tag.
       </video>
 
-      <video id="opening" autoplay muted>
+      <video id="light" autoplay muted>
         <!-- <source src="opening.webm" type="video/webm" /> -->
         Your browser does not support the video tag.
       </video>
@@ -89,8 +96,6 @@
         the sweet fruit of autumn and winter in China, are known as the
         "sunshine of fruits."
       </p>
-      <div class="persimmon-images"></div>
-      <div class="circle"></div>
       <div class="attributes">
         <div class="attribute">
           <h2>Look</h2>

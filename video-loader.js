@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // 视频 ID 列表
-    var videoIds = ['foregroundVideoContainer', 'backgroundVideo', 'opening', 'introVideo'];
+    var videoIds = ['foregroundVideoContainer', 'backgroundVideo', 'light', 'introVideo'];
 
     // 每个视频的源文件映射
     var videoSources = {
@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
             webm: 'resturant.webm',
             mov: 'resturant.mov'
         },
-        'opening': {
+        'light': {
             webm: 'opening.webm',
             mov: 'opening.mov'
         },
         'introVideo': {
             webm: 'next.webm',
-            mov: 'next.mov'
+            mov: '开门.mov'
         },
     };
 

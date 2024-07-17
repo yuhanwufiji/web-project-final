@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #ffedd9;
 }
 canvas {
   display: block;
@@ -13,7 +14,6 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-image: url(bg.png); */
   position: absolute;
   z-index: 8;
 }
@@ -38,7 +38,6 @@ video {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 #fixedButton {
@@ -58,7 +57,7 @@ video {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background-color: #ffedd9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,12 +66,12 @@ video {
   z-index: 10;
 }
 
-.three-container{
+.three-container {
   display: none;
   position: absolute;
-  top:0;
-  left:0;
-  z-index:-1;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 .controls {
   position: absolute;
@@ -81,16 +80,35 @@ video {
   background: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 5px;
-  z-index:3;
+  z-index: 3;
 }
 
-#progressText{
+#progressText {
   position: absolute;
-bottom: 20px;
-right:100px;
-color:#333;
-font-size: 50px;
+  bottom: 20px;
+  right: 30px;
+  font-family: "ultra", sans-serif;
+  color: #fff;
+  text-shadow: -8px 5px 0px #f09b42;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110.412%; /* 141.294px */
 }
+
+.loadingText {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  font-family: "ultra", sans-serif;
+  color: #fff;
+  text-shadow: -8px 5px 0px #f09b42;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110.412%; /* 141.294px */
+}
+
 .camera-info {
   margin-top: 10px;
 }
@@ -99,17 +117,17 @@ button {
   margin-bottom: 5px;
 }
 
-
-
 .info-container {
   /* background-color: #fff; */
   position: absolute;
-  left:20%;
+  left: 20%;
   background: transparent no-repeat;
   background-size: contain;
+  background-position: right center;
   background-image: url(bg.jpg);
   border-radius: 7px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.1));
   overflow: hidden;
   width: 700px;
   height: auto;
@@ -118,6 +136,9 @@ button {
   position: relative;
   text-align: right;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   /* stroke: 1px; */
 }
 .container h1 {
@@ -126,25 +147,6 @@ button {
   color: #333;
   margin: 0;
 }
-.container .description {
-  font-size: 16px;
-  color: #666;
-  margin: 10px 0;
-}
-
-#videoOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color:transparent;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 19;
-}
-
 .persimmon-images {
   display: flex;
   justify-content: center;
@@ -159,11 +161,11 @@ button {
 }
 
 .attributes {
-  margin: 20px 0;
+  width: 80%;
 }
 .attribute {
   text-align: right;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .attribute h2 {
   font-family: "Ultra", serif;
@@ -177,10 +179,9 @@ button {
 }
 .attribute p {
   color: #413f39;
-
   text-align: right;
   font-family: "Roboto Mono", monospace;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 131%;
@@ -190,15 +191,13 @@ button {
 
 .description {
   color: #413f39;
-
   text-align: right;
   font-family: "Roboto Mono", monospace;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 131%;
-  /* font-size: 14px;
-          color: #666; */
+  width: 80%;
 }
 .input {
   margin: 20px;
@@ -222,12 +221,24 @@ button {
   background-color: #f9f9f9;
 }
 
-
-.suibian{
+.suibian {
   border-radius: 20px;
-  width:30px;
-  height:100px;
+  width: 30px;
+  height: 100px;
   background-color: #ff636358;
   border: 10px solid;
-  border-color: #DBB3B3;
+  border-color: #dbb3b3;
+}
+
+#videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 19;
 }

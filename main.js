@@ -195,7 +195,7 @@ function onMouseClick(event) {
 
 function onMouseMove(event) {
   // Define a sensitivity factor
-  const sensitivity = 0.1; // 调整这个值以改变灵敏度
+  const sensitivity = 0.01; // 调整这个值以改变灵敏度
 
   // Normalize mouse coordinates to [-1, 1]
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -209,7 +209,7 @@ function onMouseMove(event) {
   const pos = camera.position.clone().add(dir.multiplyScalar(distance));
 
   // Limit pos within specific ranges
-  const minX = -10, maxX = 0;
+  const minX = 0, maxX = 0;
   const minY = -1, maxY = 1;
   const minZ = -2, maxZ = 2;
   

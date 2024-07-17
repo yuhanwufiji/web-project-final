@@ -22,7 +22,7 @@ export function showInfoDiv(camera) {
       // 摄像头到达指定位置后延迟显示弹窗
       setTimeout(() => {
         const infoDiv = document.getElementById("info-container");
-        gsap.to(infoDiv, { duration: 0.5, opacity: 1, display: 'block' });
+        gsap.to(infoDiv, { duration: 0.5, opacity: 1, display: 'flex' });
 
         // 添加全局点击事件监听器
         const handleClickOutside = (event) => {
