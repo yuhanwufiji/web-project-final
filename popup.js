@@ -1,23 +1,42 @@
+// popup.js
+
+let overlayElement = null;
+
 function openPopup() {
+    if (overlayElement) {
+        overlayElement.style.display = 'block';
+        return;
+    }
+
     fetch('overlay.html')
         .then(response => response.text())
         .then(data => {
-            document.body.insertAdjacentHTML('beforeend', data);
-            document.getElementById('overlay').style.display = 'block';
-        });
+            const temp = document.createElement('div');
+            temp.innerHTML = data;
+
+            overlayElement = temp.querySelector('#overlay');
+
+            if (overlayElement) {
+                document.body.appendChild(overlayElement);
+                overlayElement.style.display = 'block';
+
+                const closeBtn = overlayElement.querySelector('.close-btn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closePopup);
+                }
+
+                overlayElement.addEventListener('click', function(event) {
+                    if (event.target === this) {
+                        closePopup();
+                    }
+                });
+            }
+        })
+        .catch(error => console.error('Error loading overlay:', error));
 }
 
 function closePopup() {
-    const overlay = document.getElementById('overlay');
-    if (overlay) {
-        overlay.style.display = 'none';
-        overlay.remove();
+    if (overlayElement) {
+        overlayElement.style.display = 'none';
     }
 }
-
-document.addEventListener('click', function(event) {
-    const overlay = document.getElementById('overlay');
-    if (event.target === overlay) {
-        closePopup();
-    }
-});
