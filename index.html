@@ -1,29 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js Example</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="controls">
-        <button id="pos-x-increase-button">Move X+</button>
-        <button id="pos-y-increase-button">Move Y+</button>
-        <button id="pos-z-increase-button">Move Z+</button>
-        <button id="rot-x-increase-button">Rotate X+</button>
-        <button id="rot-y-increase-button">Rotate Y+</button>
-        <button id="rot-z-increase-button">Rotate Z+</button>
-        <button id="pos-x-decrease-button">Move X-</button>
-        <button id="pos-y-decrease-button">Move Y-</button>
-        <button id="pos-z-decrease-button">Move Z-</button>
-        <button id="rot-x-decrease-button">Rotate X-</button>
-        <button id="rot-y-decrease-button">Rotate Y-</button>
-        <button id="rot-z-decrease-button">Rotate Z-</button>
-        <div class="camera-info">
-            <p id="camera-position">Position: </p >
-            <p id="camera-rotation">Rotation: </p >
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full Screen Video Player with Fixed Button</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- 这边是弹出层的style和js code -->
+    <script src="popup.js"></script>
+    <style>
+      .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0,0,0,0.7);
+          z-index: 1000;
+      }
+      .popup {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: white;
+          padding: 20px;
+          border-radius: 5px;
+          width: 70%;
+          max-width: 500px;
+      }
+  </style>
+
+  </head>
+  <body>
+    <button onclick="openPopup()">打开弹出层</button>
+
+    <div id="overlay" class="overlay">
+        <div id="popup" class="popup"></div>
+    </div>
+
+    <div id="loading">
+        <video autoplay muted loop>
+            <source src="loading.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+          <div id="progressText">0%</div>
+    </div>
+
+    <div class="starting" id="startingpage">
+      <video id="foregroundVideoContainer" autoplay muted loop>
+        <!-- <source src="scene.webm" type="video/webm" /> -->
+        Your browser does not support the video tag.
+      </video>
+
+      <video id="backgroundVideo" muted>
+        <!-- <source src="resturant.webm" type="video/webm" /> -->
+        Your browser does not support the video tag.
+      </video>
+
+      <video id="opening" autoplay muted>
+        <!-- <source src="opening.webm" type="video/webm" /> -->
+        Your browser does not support the video tag.
+      </video>
+
+      <div id="buttonContainer">
+        <button id="fixedButton">Fixed Button</button>
+      </div>
     </div>
 
 
