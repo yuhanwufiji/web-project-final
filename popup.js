@@ -1,42 +1,40 @@
 // popup.js
 
-let overlayElement = null;
+let overlayIframe = null;
 
 function openPopup() {
-    if (overlayElement) {
-        overlayElement.style.display = 'block';
+    if (overlayIframe) {
+        overlayIframe.style.display = 'block';
         return;
     }
 
-    fetch('overlay.html')
-        .then(response => response.text())
-        .then(data => {
-            const temp = document.createElement('div');
-            temp.innerHTML = data;
+    overlayIframe = document.createElement('iframe');
+    overlayIframe.style.position = 'fixed';
+    overlayIframe.style.top = '0';
+    overlayIframe.style.left = '0';
+    overlayIframe.style.width = '100%';
+    overlayIframe.style.height = '100%';
+    overlayIframe.style.border = 'none';
+    overlayIframe.style.zIndex = '2000';
+    overlayIframe.src = 'overlay.html';
 
-            overlayElement = temp.querySelector('#overlay');
+    document.body.appendChild(overlayIframe);
 
-            if (overlayElement) {
-                document.body.appendChild(overlayElement);
-                overlayElement.style.display = 'block';
+    overlayIframe.onload = function() {
+        setupCommunication();
+    };
+}
 
-                const closeBtn = overlayElement.querySelector('.close-btn');
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', closePopup);
-                }
-
-                overlayElement.addEventListener('click', function(event) {
-                    if (event.target === this) {
-                        closePopup();
-                    }
-                });
-            }
-        })
-        .catch(error => console.error('Error loading overlay:', error));
+function setupCommunication() {
+    window.addEventListener('message', function(event) {
+        if (event.data === 'closeOverlay') {
+            closePopup();
+        }
+    });
 }
 
 function closePopup() {
-    if (overlayElement) {
-        overlayElement.style.display = 'none';
+    if (overlayIframe) {
+        overlayIframe.style.display = 'none';
     }
 }
