@@ -21,6 +21,7 @@ const startPage = document.getElementById("startingpage");
 const videoOverlay = document.getElementById("videoOverlay");
 const introVideo = document.getElementById("introVideo");
 const threeContainer = document.getElementById("three-container");
+const shopButton = document.getElementById("shopButton");
 
 window.addEventListener("load", () => {
   // Notify iframe to start loading
@@ -46,7 +47,7 @@ introVideo.addEventListener("ended", () => {
 });
 
 init();
-animate();
+
 
 function init() {
 
@@ -106,6 +107,7 @@ function init() {
       });
       scene.add(model);
       loadingDiv.style.display = "none";
+      animate();
     },
     function (xhr) {
       const progress = (xhr.loaded / xhr.total) * 100;
@@ -160,6 +162,22 @@ function init() {
   // Move camera on button click
   const moveButton = document.getElementById("move-button");
   // moveButton.addEventListener("click", onMoveButtonClick);
+}
+
+
+function updateButtonPosition() {
+  const vector = new THREE.Vector3();
+  vector.setFromMatrixPosition(model.matrixWorld);
+  vector.project(camera);
+
+  const buttonPosition = {
+    x: (vector.x * 0.5 + 0.5) * window.innerWidth,
+    y: (-vector.y * 0.5 + 0.5) * window.innerHeight
+  };
+
+  shopButton.style.position = "absolute";
+  shopButton.style.left = `${buttonPosition.x}px`;
+  shopButton.style.top = `${buttonPosition.y}px`;
 }
 
 function onWindowResize() {
@@ -228,9 +246,10 @@ function animate() {
     updateMaterials();
     lastCameraPosition.copy(camera.position);
   }
-
+  
   // Render scene with composer
   composer.render();
+  updateButtonPosition();
 }
 
 function updateMaterials() {

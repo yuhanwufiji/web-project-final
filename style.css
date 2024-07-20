@@ -1,6 +1,9 @@
 body {
   margin: 0;
   background-color: #ffedd9;
+  width:100vw;
+  height:100vh;
+  overflow: hidden;
 }
 canvas {
   display: block;
@@ -241,4 +244,55 @@ button {
   align-items: center;
   justify-content: center;
   z-index: 19;
+}
+
+
+.tickerContainer {
+  position: fixed;
+  bottom: 0;
+  z-index: 9;
+}
+.ticker {
+  /* height: 20px;
+  width: 100vw; */
+  width: 4430px;
+  height: 50px;
+  min-width: 1300px;
+  background: linear-gradient(180deg, rgba(251, 239, 233, 0.00) 0%, #ECC094 100%);
+  color: rgb(255, 255, 255);
+
+  text-shadow: -3px 3px 0px #F09B42;
+
+  font-family: 'Ultra', serif;
+
+  font-size: 30px;
+
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.ticker div {
+  display: inline-block;
+  width: 200%;
+  height: 50px;
+  position: absolute;
+  overflow: hidden;
+  animation: ticker 10s linear infinite;
+}
+.ticker span {
+  float: left;
+  width: 50%;
+ 
+}
+@keyframes ticker {
+  0% { left: 0; }
+  100% { left: -100%; }
+}
+
+#shopbutton{
+  position: relative;
+  left:50%;
+  top:50%
 }
