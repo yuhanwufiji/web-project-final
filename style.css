@@ -21,6 +21,7 @@ canvas {
   z-index: 8;
 }
 video {
+  margin-top:30px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -291,8 +292,32 @@ button {
   100% { left: -100%; }
 }
 
-#shopbutton{
-  position: relative;
-  left:50%;
-  top:50%
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  background-color: #ffffff; /* Light blue background */
+  position: absolute;
+  z-index: 3;
+  width: 100vw;
+  top:0;
+  font-family: "Ultra", serif;
+}
+.header h1 {
+  /* font-family: "Ultra", serif; */
+  margin-left: 10px;
+  font-size: 17px;
+  color: #1e90ff; /* Dodger blue text */
+}
+.header .location {
+  font-size: 17px;
+  color: #1e90ff; /* Dodger blue text */
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+
+}
+.header .location img {
+  margin-right: 0px;
 }

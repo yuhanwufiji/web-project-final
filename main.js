@@ -22,7 +22,7 @@ const videoOverlay = document.getElementById("videoOverlay");
 const introVideo = document.getElementById("introVideo");
 const threeContainer = document.getElementById("three-container");
 const shopButton = document.getElementById("shopButton");
-//改在这里
+
 window.addEventListener("load", () => {
   // Notify iframe to start loading
 });
@@ -227,7 +227,7 @@ function onMouseMove(event) {
   const pos = camera.position.clone().add(dir.multiplyScalar(distance));
 
   // Limit pos within specific ranges
-  const minX = 0, maxX = 0;
+  const minX = -1, maxX = 1;
   const minY = -1, maxY = 1;
   const minZ = -2, maxZ = 2;
   
