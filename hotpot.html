@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persimmons</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Ultra&family=Roboto+Mono&display=swap');
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0px;
+            background-color: none;
+        }
+
+        .container {
+            background: url(./img/hotpot.png) no-repeat center center / cover;
+            border-radius: 7px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 917px;
+            height: 604px;
+            padding: 20px;
+            position: relative;
+            top: 0px; 
+            left: 300px;
+            text-align: right;
+          }
+        
+      
+
+        .images {
+            display: flex;
+            justify-content: space-between;
+        }
+      
+        .image {
+            position: relative;
+            display: inline-block;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .image img {
+            display: block;
+            width: 120px; /* Example width, adjust as needed */
+            height: auto;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+
+        /* Adjust positions for each image and overlay */
+       
+        #image1 { top: -110px; left: -150px; }
+        #image2 { top: 140px; left: -300px; }
+        #image3 { top: 70px; left: -300px; }
+        #image4 { top: 27px; left: -750px; }
+        #image5 { top: 200px; left: -920px; }
+
+        #image1 img{ width: 150px;}
+        #image2 img{ width: 150px; }
+        #image3 img{ width: 100px;}
+        #image4 img{ width: 125px; }
+        #image5 img{ width: 130px; }
+
+        #overlay1 { top: 0; left: 135px; }
+        #overlay2 { top: 0px; left: 125px; }
+        #overlay3 { top: 0px; left: 100px; }
+        #overlay4 { top: 0; left: 125px; }
+        #overlay5 { top: 0px; left: 125px; }
+       
+       
+        .attribute {
+            text-align: left;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 120%;
+            font-family: 'Roboto Mono', monospace;
+            width: 577px; height: 256px;
+            background: url(./img/wbg.png);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .attribute p {
+            margin: 5px;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .attribute h1 {
+            font-family: 'Ultra', serif;
+            font-size: 15px;
+            color: #E63D1E;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+  <div class="container"></div>
+    
+        <div class="images">
+            <div class="image" id="image1">
+                <img src="./img/beijing.png" alt="Descriptive Alt Text">
+                <div class="overlay" id="overlay1">
+                    <div class="attribute">
+                        <h1>Broth</h1>
+                        <p>Usually light, with common varieties including mutton broth and clear broth.</p>
+                        <h1>Dipping Sauce</h1>
+                        <p>Generally includes sesame paste, chive flower paste, fermented tofu, minced garlic, and chili oil, with a richer flavor.</p>
+                        <h1>Ingredients</h1>
+                        <p>Primarily thin slices of mutton, as well as beef, tofu, cabbage, and vermicelli.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image" id="image2">
+                <img src="./img/guangdong.png" alt="Descriptive Alt Text">
+                <div class="overlay" id="overlay2">
+                    <div class="attribute">
+                        <h1>Broth</h1>
+                        <p>Mainly nourishing, with common varieties including medicinal broth, meat broth and seafood broth. </p>
+                        <h1>Dipping Sauce</h1>
+                        <p>Generally includes satay sauce, seafood sauce, minced garlic, and cilantro, with a richer flavor.</p>
+                        <h1>Ingredients</h1>
+                        <p>Primarily seafood, such as fish fillets, shrimp, and crab, along with various meats, vegetables, and bean products.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image" id="image3">
+                <img src="./img/jiangzhe.png" alt="Descriptive Alt Text">
+                <div class="overlay" id="overlay3">
+                    <div class="attribute">
+                        <h1>Broth</h1>
+                        <p>Common varieties including chicken broth and bone broth. There is also the very representative and distinctive chrysanthemum broth.</p>
+                        <h1>Dipping Sauce</h1>
+                        <p>Typically consists of soy sauce, vinegar, minced garlic, and cilantro, with a lighter flavor that emphasizes the original taste of the ingredients.</p>
+                        <h1>Ingredients</h1>
+                        <p>Primarily seafood, such as shrimp, crab, and fish fillets, as well as various vegetables.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image" id="image4">
+                <img src="./img/chuanyu.png" alt="Descriptive Alt Text">
+                <div class="overlay" id="overlay4">
+                    <div class="attribute">
+                        <h1>Broth</h1>
+                        <p>Mainly spicy, using a large amount of chili peppers and Sichuan peppercorns. </p>
+                        <h1>Dipping Sauce</h1>
+                        <p> Typically an oil-based one, including minced garlic, cilantro, chopped scallions, and sesame oil. </p>
+                        <h1>Ingredients</h1>
+                        <p>Besides the common tripe, yellow throat, and duck intestines, there are various vegetables, bean curd skins, and wide noodles.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image" id="image5">
+                <img src="./img/guizhou.png" alt="Descriptive Alt Text">
+                <div class="overlay" id="overlay5">
+                    <div class="attribute">
+                        <h1>Broth</h1>
+                        <p>Sour broth is a specialty, made with fermented ingredients like tomatoes and pickled vegetables, offering a tangy and appetizing flavor.</p>
+                        <h1>Dipping Sauce</h1>
+                        <p>Usually including chili powder, minced garlic, and cilantro, with a lighter taste.</p>
+                        <h1>Ingredients</h1>
+                        <p>Primarily fish fillets and beef slices, as well as various wild delicacies like bamboo shoots and mushrooms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有图片和覆盖层
+            var images = document.querySelectorAll('.image');
+            var overlays = document.querySelectorAll('.overlay');
+
+            images.forEach(function(image, index) {
+                var img = image.querySelector('img');
+                var overlay = overlays[index];
+
+                // 为每个图片添加鼠标悬停事件
+                image.addEventListener('mouseover', function() {
+                    images.forEach(function(otherImage, otherIndex) {
+                        if (otherIndex !== index) {
+                            otherImage.style.opacity = '0'; // 隐藏其他图片
+                        }
+                    });
+                    overlay.style.opacity = '1'; // 显示当前图片的覆盖层
+                });
+
+                image.addEventListener('mouseout', function() {
+                    images.forEach(function(otherImage) {
+                        otherImage.style.opacity = '1'; // 恢复所有图片的可见性
+                    });
+                    overlay.style.opacity = '0'; // 隐藏当前图片的覆盖层
+                });
+            });
+        });
+    </script>
+</body>
+</html>

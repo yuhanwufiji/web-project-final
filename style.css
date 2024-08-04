@@ -72,11 +72,13 @@ video {
 
 .three-container {
   display: none;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   z-index: -1;
+  
 }
+
 .controls {
   position: absolute;
   top: 0px;
@@ -117,8 +119,10 @@ video {
   margin-top: 10px;
 }
 button {
-  display: block;
+  
   margin-bottom: 5px;
+  height:70px;
+  width:100px;
 }
 
 .info-container {
@@ -320,4 +324,52 @@ button {
 }
 .header .location img {
   margin-right: 0px;
+}
+
+
+#shopButton{
+  background-image: url('shopButton.gif');
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: 1;
+  border: none;
+}
+
+#shopButton:hover{
+  background-image: url('shop.png');
+  
+  background-size: contain;
+ 
+  background-repeat: no-repeat;
+}
+
+#potButton{
+  background-image: url('button.gif');
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: 1;
+  border: none;
+}
+
+#potButton:hover{
+  background-image: url('go1.png');
+}
+
+#posterButton{
+  background-image: url('button.gif');
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: 1;
+  border: none;
+}
+
+#posterButton:hover{
+  
+  background-image: url('go.png');
 }

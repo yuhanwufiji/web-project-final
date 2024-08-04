@@ -23,6 +23,12 @@ const introVideo = document.getElementById("introVideo");
 const threeContainer = document.getElementById("three-container");
 const shopButton = document.getElementById("shopButton");
 
+const buttons = [
+  { element: document.getElementById('shopButton'), position: new THREE.Vector3(1, 2, 0) },
+  { element: document.getElementById('potButton'), position: new THREE.Vector3(1, 1, 0) },
+  { element: document.getElementById('posterButton'), position: new THREE.Vector3(-1, -1, 0) }
+];
+
 window.addEventListener("load", () => {
   // Notify iframe to start loading
 });
@@ -40,6 +46,7 @@ button.addEventListener("click", () => {
   videoOverlay.style.display = "flex";
   introVideo.play();
   threeContainer.style.display = "flex";
+ 
 });
 
 introVideo.addEventListener("ended", () => {
@@ -165,19 +172,16 @@ function init() {
 }
 
 
-function updateButtonPosition() {
-  const vector = new THREE.Vector3();
-  vector.setFromMatrixPosition(model.matrixWorld);
-  vector.project(camera);
-
-  const buttonPosition = {
-    x: (vector.x * 0.5 + 0.5) * window.innerWidth,
-    y: (-vector.y * 0.5 + 0.5) * window.innerHeight
-  };
-
-  shopButton.style.position = "absolute";
-  shopButton.style.left = `${buttonPosition.x}px`;
-  shopButton.style.top = `${buttonPosition.y}px`;
+function updateButtonPositions() {
+  buttons.forEach(button => {
+    const vector = button.position.clone().project(camera);
+    const buttonPosition = {
+      x: (vector.x * 0.5 + 0.5) * window.innerWidth,
+      y: (-vector.y * 0.5 + 0.5) * window.innerHeight
+    };
+    button.element.style.left = `${buttonPosition.x}px`;
+    button.element.style.top = `${buttonPosition.y}px`;
+  });
 }
 
 function onWindowResize() {
@@ -188,28 +192,28 @@ function onWindowResize() {
   composer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function onMouseClick(event) {
-  // Normalize mouse coordinates to [-1, 1]
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+// function onMouseClick(event) {
+//   // Normalize mouse coordinates to [-1, 1]
+//   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+//   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-  // Update the picking ray with the camera and mouse position
-  raycaster.setFromCamera(mouse, camera);
+//   // Update the picking ray with the camera and mouse position
+//   raycaster.setFromCamera(mouse, camera);
 
-  // Calculate objects intersecting the picking ray
-  const intersects = raycaster.intersectObjects(objects);
+//   // Calculate objects intersecting the picking ray
+//   const intersects = raycaster.intersectObjects(objects);
 
-  if (intersects.length > 0) {
-    const intersectedObject = intersects[0].object;
-    console.log(intersectedObject); // 输出被点击对象的名称
-    // Check if the clicked object is the specific model
-    if (intersectedObject.name === 'zhuozil') {
-      // alert("clicked");
-      showInfoDiv(camera);
-    }
-  }
+//   if (intersects.length > 0) {
+//     const intersectedObject = intersects[0].object;
+//     console.log(intersectedObject); // 输出被点击对象的名称
+//     // Check if the clicked object is the specific model
+//     if (intersectedObject.name === 'zhuozil') {
+//       // alert("clicked");
+//       showInfoDiv(camera);
+//     }
+//   }
   
-}
+// }
 
 function onMouseMove(event) {
   // Define a sensitivity factor
@@ -249,7 +253,7 @@ function animate() {
   
   // Render scene with composer
   composer.render();
-  updateButtonPosition();
+  updateButtonPositions();
 }
 
 function updateMaterials() {

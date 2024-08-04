@@ -1,11 +1,14 @@
 let overlayIframe = null;
+let closeButton = null;
 
-function openPopup() {
+function openPopup(htmlFilePath) {
     if (overlayIframe) {
         overlayIframe.style.display = 'block';
+        overlayIframe.src = htmlFilePath; // Update the iframe source
         return;
     }
 
+    // Create iframe
     overlayIframe = document.createElement('iframe');
     overlayIframe.style.position = 'fixed';
     overlayIframe.style.top = '0';
@@ -14,37 +17,30 @@ function openPopup() {
     overlayIframe.style.height = '100%';
     overlayIframe.style.border = 'none';
     overlayIframe.style.zIndex = '2000';
-    overlayIframe.src = 'overlay.html';
+    overlayIframe.src = htmlFilePath;
+
+    // Create close button
+    closeButton = document.createElement('button');
+    closeButton.innerHTML = 'Close';
+    closeButton.style.position = 'fixed';
+    closeButton.style.top = '10px';
+    closeButton.style.right = '10px';
+    closeButton.style.zIndex = '2001'; // Ensure it appears above the iframe
+    closeButton.onclick = closePopup;
 
     document.body.appendChild(overlayIframe);
+    document.body.appendChild(closeButton);
 
     overlayIframe.onload = function() {
         setupCommunication();
     };
-
-    // 添加点击事件监听器
-    document.addEventListener('click', handleClickOutside);
-}
-
-// function setupCommunication() {
-//     window.addEventListener('message', function(event) {
-//         if (event.data === 'closeOverlay') {
-//             closePopup();
-//         }
-//     });
-// }
-
-function handleClickOutside(event) {
-    // 检查点击是否在iframe外部
-    if (overlayIframe && !overlayIframe.contains(event.target)) {
-        closePopup();
-    }
 }
 
 function closePopup() {
     if (overlayIframe) {
         overlayIframe.style.display = 'none';
-        // 移除点击事件监听器
-        document.removeEventListener('click', handleClickOutside);
+    }
+    if (closeButton) {
+        closeButton.style.display = 'none';
     }
 }
