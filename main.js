@@ -81,6 +81,8 @@ function init() {
     2000
   );
   camera.position.set(5.04, 1.03, -1.53);
+  
+
   camera.lookAt(targetLookAt2);
   lastCameraPosition.copy(camera.position);
 
@@ -217,6 +219,7 @@ function onWindowResize() {
 
 function onMouseMove(event) {
   // Define a sensitivity factor
+camera.rotation.order = "YXZ"; // this is not the default
   const sensitivity = 0.01; // 调整这个值以改变灵敏度
 
   // Normalize mouse coordinates to [-1, 1]
@@ -243,6 +246,24 @@ function onMouseMove(event) {
   camera.lookAt(pos);
 }
 
+
+
+
+
+
+
+// function onMouseMove( event ) {
+
+//   var mouseX = 0;
+// var mouseY = 0;
+// var scale = 1;
+//     mouseX = - ( event.clientX / renderer.domElement.clientWidth ) * 2 + 1;
+//     mouseY = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+//     camera.rotation.x = mouseY / scale;
+//     camera.rotation.y = mouseX / scale;
+
+// }
 
 function animate() {
   requestAnimationFrame(animate);
