@@ -2,11 +2,11 @@ let overlayIframe = null;
 let closeButton = null;
 
 function openPopup(htmlFilePath) {
-    if (overlayIframe) {
-        overlayIframe.style.display = 'block';
-        overlayIframe.src = htmlFilePath; // Update the iframe source
-        return;
-    }
+    // if (overlayIframe) {
+    //     overlayIframe.style.display = 'block';
+    //     overlayIframe.src = htmlFilePath; // Update the iframe source
+    //     return;
+    // }
 
     // Create iframe
     overlayIframe = document.createElement('iframe');
