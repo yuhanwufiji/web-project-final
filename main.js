@@ -24,9 +24,11 @@ const threeContainer = document.getElementById("three-container");
 const shopButton = document.getElementById("shopButton");
 
 const buttons = [
-  { element: document.getElementById('shopButton'), position: new THREE.Vector3(1, 2, 0) },
-  { element: document.getElementById('potButton'), position: new THREE.Vector3(1, 1, 0) },
-  { element: document.getElementById('posterButton'), position: new THREE.Vector3(-1, -1, 0) }
+  { element: document.getElementById('potButton2'), position: new THREE.Vector3(-10, 0, 0) },
+  { element: document.getElementById('potButton1'), position: new THREE.Vector3(1, 0.8, 0) },
+  { element: document.getElementById('posterButton'), position: new THREE.Vector3(3, 1.3, 0) },
+  { element: document.getElementById('leaveButton'), position: new THREE.Vector3(-90, 1.5, 1) },
+  { element: document.getElementById('shopButton'), position: new THREE.Vector3(-1, 1.3, 0) }
 ];
 
 window.addEventListener("load", () => {
@@ -97,7 +99,7 @@ function init() {
   const loader = new GLTFLoader();
   // loader.setDRACOLoader(dracoLoader);
   loader.load(
-    "7.10.glb",
+    "8.6.glb",
     function (gltf) {
       model = gltf.scene;
       model.traverse((child) => {
@@ -177,14 +179,29 @@ function init() {
 function updateButtonPositions() {
   buttons.forEach(button => {
     const vector = button.position.clone().project(camera);
-    const buttonPosition = {
+    let buttonPosition = {
       x: (vector.x * 0.5 + 0.5) * window.innerWidth,
       y: (-vector.y * 0.5 + 0.5) * window.innerHeight
     };
+
+    if (button.element.id === 'leaveButton') {
+      const customOffset = { x: 550, y: 0 };  // 自定义偏移值
+      buttonPosition.x += customOffset.x;
+      buttonPosition.y += customOffset.y;
+    }
+
+    if (button.element.id === 'potButton2') {
+      const customOffset = { x: 100, y: 0 };  // 自定义偏移值
+      buttonPosition.x += customOffset.x;
+      buttonPosition.y += customOffset.y;
+    }
+
     button.element.style.left = `${buttonPosition.x}px`;
     button.element.style.top = `${buttonPosition.y}px`;
   });
 }
+
+
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;

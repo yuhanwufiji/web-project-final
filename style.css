@@ -328,13 +328,15 @@ button {
 
 
 #shopButton{
-  background-image: url('shopButton.gif');
+  background-image: url('shop.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
+  background-position: center;
   position: absolute;
   z-index: 1;
   border: none;
+  right:0px;
 }
 
 #shopButton:hover{
@@ -345,8 +347,8 @@ button {
   background-repeat: no-repeat;
 }
 
-#potButton{
-  background-image: url('button.gif');
+#potButton1{
+  background-image: url('go.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -355,12 +357,12 @@ button {
   border: none;
 }
 
-#potButton:hover{
-  background-image: url('go1.png');
+#potButton1:hover{
+  background-image: url('go.png');
 }
 
 #posterButton{
-  background-image: url('button.gif');
+  background-image: url('go.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -372,4 +374,39 @@ button {
 #posterButton:hover{
   
   background-image: url('go.png');
+}
+
+
+#leaveButton{
+  background-image: url('exit.gif');
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  z-index: 1;
+  border: none;
+}
+
+#leaveButton:hover{
+  background-image: url('exit.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#potButton2{
+  background-image: url('go.gif');
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  z-index: 1;
+  border: none;
+}
+
+#potButton2:hover{
+  background-image: url('go.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
