@@ -75,7 +75,7 @@ video {
 }
 
 .three-container {
-  display: none;
+  display: flex;
   position: relative;
   top: 0;
   left: 0;

@@ -8,10 +8,14 @@ import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
-
+import { gsap } from "gsap/gsap-core";
 import { showInfoDiv } from "./showInfoDiv.js"; // 导入 showInfoDiv 函数
-import { PerspectiveCameraForResizableWindow, handleCameraRotation, handleMouseMovement } from './CameraWithMouseRotation.js';
-import CameraOrientationState from './CameraOrientationState.js';
+import {
+  PerspectiveCameraForResizableWindow,
+  handleCameraRotation,
+  handleMouseMovement,
+} from "./CameraWithMouseRotation.js";
+import CameraOrientationState from "./CameraOrientationState.js";
 import { PI } from "three/examples/jsm/nodes/Nodes.js";
 
 let scene, camera, renderer, composer, model, controls, raycaster;
@@ -24,15 +28,31 @@ const loadingDiv = document.getElementById("loading");
 const startPage = document.getElementById("startingpage");
 const videoOverlay = document.getElementById("videoOverlay");
 const introVideo = document.getElementById("introVideo");
-const threeContainer = document.getElementById("three-container");
+const threeContainer = document.getElementById("three-wrapper");
 const shopButton = document.getElementById("shopButton");
+const leaveButton = document.getElementById("leaveButton");
 
 const buttons = [
-  { element: document.getElementById('potButton2'), position: new THREE.Vector3(2, 0.7, 0) },
-  { element: document.getElementById('potButton1'), position: new THREE.Vector3(-0.9, 0.9, 0) },
-  { element: document.getElementById('posterButton'), position: new THREE.Vector3(-2, 1.3, 0) },
-  { element: document.getElementById('leaveButton'), position: new THREE.Vector3(2.9, 1.8, 1) },
-  { element: document.getElementById('shopButton'), position: new THREE.Vector3(0, 1.4, 0) }
+  {
+    element: document.getElementById("potButton2"),
+    position: new THREE.Vector3(2, 0.7, 0),
+  },
+  {
+    element: document.getElementById("potButton1"),
+    position: new THREE.Vector3(-0.9, 0.9, 0),
+  },
+  {
+    element: document.getElementById("posterButton"),
+    position: new THREE.Vector3(-2, 1.3, 0),
+  },
+  {
+    element: document.getElementById("leaveButton"),
+    position: new THREE.Vector3(2.9, 1.8, 1),
+  },
+  {
+    element: document.getElementById("shopButton"),
+    position: new THREE.Vector3(0, 1.4, 0),
+  },
 ];
 const mouse = new THREE.Vector2();
 
@@ -52,19 +72,20 @@ button.addEventListener("click", () => {
   startPage.style.display = "none";
   videoOverlay.style.display = "flex";
   introVideo.play();
-  threeContainer.style.display = "flex";
- 
+  // threeContainer.style.display = "flex";
+});
+
+leaveButton.addEventListener("click", () => {
+  startPage.style.display = "flex";
+  threeContainer.style.display = "none";
+  startPage.style.opacity = 0;
+  // 使用 GSAP 让元素淡入显示
+  gsap.to(startPage, { duration: 1, opacity: 1, ease: "power2.inOut" });
 });
 
 introVideo.addEventListener("ended", () => {
   videoOverlay.style.display = "none";
 });
-
-
-function frontPage(){
-
-  startPage.style.display = "none";
-}
 
 init();
 
@@ -88,7 +109,7 @@ function init() {
   camera = PerspectiveCameraForResizableWindow(30, 0.1, 10000, renderer);
   camera.position.set(1, 1.2, 6);
   // camera.lookAt(new THREE.Vector3(0, -1, -1));
-  
+
   camera = new THREE.PerspectiveCamera(
     50,
     window.innerWidth / window.innerHeight,
@@ -96,7 +117,6 @@ function init() {
     2000
   );
   camera.position.set(1.04, 1.03, 4.53);
-  
 
   camera.lookAt(targetLookAt2);
   lastCameraPosition.copy(camera.position);
@@ -106,7 +126,9 @@ function init() {
 
   // Configure and load GLTF model with DRACOLoader
   const dracoLoader = new DRACOLoader();
-  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+  dracoLoader.setDecoderPath(
+    "https://www.gstatic.com/draco/versioned/decoders/1.4.1/"
+  );
 
   const loader = new GLTFLoader();
   // loader.setDRACOLoader(dracoLoader);
@@ -135,8 +157,8 @@ function init() {
     },
     function (xhr) {
       const progress = (xhr.loaded / xhr.total) * 100;
-      progressText.textContent = Math.round(progress) + '%';
-      console.log(progress + '% loaded');
+      progressText.textContent = Math.round(progress) + "%";
+      console.log(progress + "% loaded");
     },
     undefined,
     function (error) {
@@ -154,7 +176,9 @@ function init() {
   // Unreal Bloom pass
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.2, 0.4, 0.85
+    0.2,
+    0.4,
+    0.85
   );
   bloomPass.threshold = 0;
   bloomPass.strength = 0.2;
@@ -181,7 +205,7 @@ function init() {
   window.addEventListener("mousemove", onMouseMove, false);
 
   // Mouse click event listener
-  window.addEventListener("click", onMouseClick, false);
+  // window.addEventListener("click", onMouseClick, false);
 
   // Move camera on button click
   const moveButton = document.getElementById("move-button");
@@ -189,21 +213,21 @@ function init() {
 }
 
 function updateButtonPositions() {
-  buttons.forEach(button => {
+  buttons.forEach((button) => {
     const vector = button.position.clone().project(camera);
     let buttonPosition = {
       x: (vector.x * 0.5 + 0.5) * window.innerWidth,
-      y: (-vector.y * 0.5 + 0.5) * window.innerHeight
+      y: (-vector.y * 0.5 + 0.5) * window.innerHeight,
     };
 
-    if (button.element.id === 'leaveButton') {
-      const customOffset = { x: 0, y: 0 };  // 自定义偏移值
+    if (button.element.id === "leaveButton") {
+      const customOffset = { x: 0, y: 0 }; // 自定义偏移值
       buttonPosition.x += customOffset.x;
       buttonPosition.y += customOffset.y;
     }
 
-    if (button.element.id === 'potButton2') {
-      const customOffset = { x: 0, y: 0 };  // 自定义偏移值
+    if (button.element.id === "potButton2") {
+      const customOffset = { x: 0, y: 0 }; // 自定义偏移值
       buttonPosition.x += customOffset.x;
       buttonPosition.y += customOffset.y;
     }
@@ -213,8 +237,6 @@ function updateButtonPositions() {
   });
 }
 
-
-
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -223,20 +245,14 @@ function onWindowResize() {
   composer.setSize(window.innerWidth, window.innerHeight);
 }
 
-
-
 function onMouseMove(event) {
-
   // Normalize mouse coordinates to [-1, 1]
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = (event.clientY / window.innerHeight) * 2 - 1;
 
   handleMouseMovement(mouse.x, mouse.y, cameraOrientationState);
 }
-document.addEventListener('mousemove', onMouseMove, false);
-
-
-
+document.addEventListener("mousemove", onMouseMove, false);
 
 function animate() {
   requestAnimationFrame(animate);

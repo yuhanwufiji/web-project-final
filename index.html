@@ -46,7 +46,7 @@
       }
     </style>
   </head>
-  <body>
+  <div>
     <!-- <button onclick="openPopup()">打开弹出层</button> -->
 
     <div id="overlay" class="overlay">
@@ -54,7 +54,7 @@
     </div>
 
     <div id="loading">
-      <video id="loadingVideo" muted autoplay muted loop style="margin-top: 0px">
+      <video id="loadingVideo" muted autoplay loop style="margin-top: 0px">
         Your browser does not support the video tag.
       </video>
       <div class="loadingText">Savor the taste</div>
@@ -111,7 +111,7 @@
     </div>
 
     <div id="videoOverlay">
-      <video id="introVideo" muted style="margin-top: 0px">
+      <video id="introVideo" muted autoplay style="margin-top: 0px">
         <!-- <source src="next.webm" type="video/webm" /> -->
         Your browser does not support the video tag.
       </video>
@@ -151,16 +151,19 @@
       </div>
     </div>
 
+
+    <div id="three-wrapper">
     <button id="shopButton" onclick="openPopup('overlay.html')"></button>
     <button id="potButton1" onclick="openPopup('hotpot.html')"></button>
     <button id="posterButton" onclick="openPopup('poster.html')"></button>
     <button id="potButton2" onclick="openPopup('overlay.html')"></button>
-    <button id="leaveButton" onclick="closePopup()"></button>
+    <button id="leaveButton"></button>
 
     <div class="three-container" id="three-container"></div>
     <!-- Hidden iframe to preload the next page -->
     <!-- <script type="module" src="./startpage.js"></script> -->
-    
+    </div>
+
     <script src="video-loader.js"></script>
   </body>
 </html>

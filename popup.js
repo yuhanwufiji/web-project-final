@@ -39,8 +39,7 @@ function openPopup(htmlFilePath) {
 }
 
 function closePopup() {
-    const startPage = document.getElementById("startingpage");
-    startPage.style.display = "flex";
+    
     // startPage.style.opacity = 0.5;
 
 
