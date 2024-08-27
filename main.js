@@ -10,9 +10,13 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
 import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
 import { gsap } from "gsap";
 import { showInfoDiv } from "./showInfoDiv.js"; // 导入 showInfoDiv 函数
+import { PerspectiveCameraForResizableWindow, handleCameraRotation, handleMouseMovement } from './CameraWithMouseRotation.js';
+import CameraOrientationState from './CameraOrientationState.js';
+import { PI } from "three/examples/jsm/nodes/Nodes.js";
 
-let scene, camera, renderer, composer, model, controls, raycaster, mouse;
+let scene, camera, renderer, composer, model, controls, raycaster;
 const objects = [];
+let cameraOrientationState = new CameraOrientationState();
 let lastCameraPosition = new THREE.Vector3();
 const button = document.getElementById("fixedButton");
 const backgroundVideo = document.getElementById("backgroundVideo");
@@ -30,6 +34,7 @@ const buttons = [
   { element: document.getElementById('leaveButton'), position: new THREE.Vector3(-90, 1.5, 1) },
   { element: document.getElementById('shopButton'), position: new THREE.Vector3(-1, 1.3, 0) }
 ];
+const mouse = new THREE.Vector2();
 
 window.addEventListener("load", () => {
   // Notify iframe to start loading
@@ -57,9 +62,7 @@ introVideo.addEventListener("ended", () => {
 
 init();
 
-
 function init() {
-
   // Scene
   scene = new THREE.Scene();
 
@@ -76,6 +79,10 @@ function init() {
   const targetLookAt2 = new THREE.Vector3(-2.3, 1, -0.7);
 
   // Camera
+  camera = PerspectiveCameraForResizableWindow(30, 0.1, 10000, renderer);
+  camera.position.set(1, 1.2, 6);
+  // camera.lookAt(new THREE.Vector3(0, -1, -1));
+  
   camera = new THREE.PerspectiveCamera(
     50,
     window.innerWidth / window.innerHeight,
@@ -90,7 +97,6 @@ function init() {
 
   // Raycaster
   raycaster = new THREE.Raycaster();
-  mouse = new THREE.Vector2();
 
   // Configure and load GLTF model with DRACOLoader
   const dracoLoader = new DRACOLoader();
@@ -117,6 +123,7 @@ function init() {
         }
       });
       scene.add(model);
+      scene.rotation.y = -Math.PI / 2;
       loadingDiv.style.display = "none";
       animate();
     },
@@ -174,7 +181,6 @@ function init() {
   const moveButton = document.getElementById("move-button");
   // moveButton.addEventListener("click", onMoveButtonClick);
 }
-
 
 function updateButtonPositions() {
   buttons.forEach(button => {
@@ -235,33 +241,15 @@ function onWindowResize() {
 // }
 
 function onMouseMove(event) {
-  // Define a sensitivity factor
-camera.rotation.order = "YXZ"; // this is not the default
-  const sensitivity = 0.01; // 调整这个值以改变灵敏度
 
   // Normalize mouse coordinates to [-1, 1]
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  mouse.y = (event.clientY / window.innerHeight) * 2 - 1;
 
-  // Convert normalized coordinates to world coordinates
-  const vector = new THREE.Vector3(mouse.x * sensitivity, mouse.y * sensitivity, 0.5); // 乘以灵敏度因子
-  vector.unproject(camera);
-  const dir = vector.sub(camera.position).normalize();
-  const distance = -camera.position.z / dir.z;
-  const pos = camera.position.clone().add(dir.multiplyScalar(distance));
-
-  // Limit pos within specific ranges
-  const minX = -1, maxX = 1;
-  const minY = -1, maxY = 1;
-  const minZ = -2, maxZ = 2;
-  
-  pos.x = Math.max(minX, Math.min(maxX, pos.x));
-  pos.y = Math.max(minY, Math.min(maxY, pos.y));
-  pos.z = Math.max(minZ, Math.min(maxZ, pos.z));
-
-  // Update camera lookAt
-  camera.lookAt(pos);
+  handleMouseMovement(mouse.x, mouse.y, cameraOrientationState);
 }
+document.addEventListener('mousemove', onMouseMove, false);
+
 
 
 
@@ -284,20 +272,8 @@ camera.rotation.order = "YXZ"; // this is not the default
 
 function animate() {
   requestAnimationFrame(animate);
-  if (!camera.position.equals(lastCameraPosition)) {
-    updateMaterials();
-    lastCameraPosition.copy(camera.position);
-  }
-  
+  handleCameraRotation(camera, cameraOrientationState);
   // Render scene with composer
   composer.render();
   updateButtonPositions();
-}
-
-function updateMaterials() {
-  objects.forEach((child) => {
-    if (child.material) {
-      child.material.needsUpdate = true;
-    }
-  });
 }
