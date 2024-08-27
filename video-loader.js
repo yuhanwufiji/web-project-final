@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // 视频 ID 列表
-    var videoIds = ['foregroundVideoContainer', 'backgroundVideo', 'light', 'introVideo'];
+    var videoIds = ['foregroundVideoContainer', 'backgroundVideo', 'light', 'introVideo','loadingVideo'];
 
     // 每个视频的源文件映射
     var videoSources = {
@@ -18,8 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         'introVideo': {
             webm: 'next.webm',
-            mov: '开门.mov'
+            mov: 'output.mov'
         },
+        'loadingVideo': {
+            webm: 'loading.webm',
+            mov: 'loading.mov'
+        }
     };
 
     // 处理每个视频的函数
