@@ -71,10 +71,8 @@ function init() {
 
   // Camera
   camera = PerspectiveCameraForResizableWindow(30, 0.1, 10000, renderer);
-  camera.position.set(5.04, 1.03, -1.53);
-  camera.rotation.x = THREE.MathUtils.degToRad(10); // Example: 10 degrees
-  camera.rotation.y = THREE.MathUtils.degToRad(-90); // Example: 30 degrees
-  camera.rotation.z = THREE.MathUtils.degToRad(0); // Example: 0 degrees
+  camera.position.set(1, 1.2, 6);
+  // camera.lookAt(new THREE.Vector3(0, -1, -1));
   
   // Raycaster
   raycaster = new THREE.Raycaster();
@@ -104,6 +102,7 @@ function init() {
         }
       });
       scene.add(model);
+      scene.rotation.y = -Math.PI / 2;
       loadingDiv.style.display = "none";
       animate();
     },

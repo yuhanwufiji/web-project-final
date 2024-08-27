@@ -14,18 +14,31 @@ export const PerspectiveCameraForResizableWindow = (cameraFOV, howNearToRender, 
 }
 
 export const handleMouseMovement = (mouseX, mouseY, cameraOrientationState) => {
-    const now = performance.now() 
+    const now = performance.now();
 
     cameraOrientationState.lastMouseMoveTime = now;
 
     const rotationScale = 0.05;
 
-    cameraOrientationState.pitchAngle = -(mouseY * rotationScale) * Math.PI; //Remove negative if mouse rotation is inverted
-    cameraOrientationState.yawAngle = -(mouseX * rotationScale) * Math.PI; //Remove negative if mouse rotation is inverted
+    cameraOrientationState.pitchAngle = -(mouseY * rotationScale) * Math.PI;
+    cameraOrientationState.yawAngle = -(mouseX * rotationScale) * Math.PI;
+
+    // 限制 pitchAngle 的范围
+    const maxPitchAngle = 0;  // 90 度
+    const minPitchAngle = -Math.PI / 16; // -90 度
+
+    cameraOrientationState.pitchAngle = Math.max(minPitchAngle, Math.min(maxPitchAngle, cameraOrientationState.pitchAngle));
+
+    // 限制 yawAngle 的范围（如果需要）
+    const maxYawAngle = 0;  // 180 度
+    const minYawAngle = -Math.PI/4; // -180 度
+
+    cameraOrientationState.yawAngle = Math.max(minYawAngle, Math.min(maxYawAngle, cameraOrientationState.yawAngle));
 
     cameraOrientationState.startingPitchAngleForCurrentCoordinates = cameraOrientationState.previousPitchAngle;
     cameraOrientationState.startingYawAngleForCurrentCoordinates = cameraOrientationState.previousYawAngle;
 }
+
 
 export const handleCameraRotation = (camera, cameraOrientationState) => {
     const now = performance.now()
