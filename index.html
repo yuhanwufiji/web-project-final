@@ -14,6 +14,7 @@
 
     <!-- 这边是弹出层的style和js code -->
     <script src="popup.js"></script>
+    <script type="module" src="./main.js"></script>
     <style>
       .overlay {
         display: none;
@@ -155,12 +156,12 @@
     <button id="potButton1" onclick="openPopup('hotpot.html')"></button>
     <button id="posterButton" onclick="openPopup('poster.html')"></button>
     <button id="potButton2" onclick="openPopup('overlay.html')"></button>
-    <button id="leaveButton" onclick="openPopup('hotpot.html')"></button>
+    <button id="leaveButton" onclick="closePopup()"></button>
 
     <div class="three-container" id="three-container"></div>
     <!-- Hidden iframe to preload the next page -->
     <!-- <script type="module" src="./startpage.js"></script> -->
-    <script type="module" src="./main.js"></script>
+    
     <script src="video-loader.js"></script>
   </body>
 </html>

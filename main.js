@@ -8,7 +8,7 @@ import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
-import { gsap } from "gsap";
+
 import { showInfoDiv } from "./showInfoDiv.js"; // 导入 showInfoDiv 函数
 import { PerspectiveCameraForResizableWindow, handleCameraRotation, handleMouseMovement } from './CameraWithMouseRotation.js';
 import CameraOrientationState from './CameraOrientationState.js';
@@ -28,11 +28,11 @@ const threeContainer = document.getElementById("three-container");
 const shopButton = document.getElementById("shopButton");
 
 const buttons = [
-  { element: document.getElementById('potButton2'), position: new THREE.Vector3(-10, 0, 0) },
-  { element: document.getElementById('potButton1'), position: new THREE.Vector3(1, 0.8, 0) },
-  { element: document.getElementById('posterButton'), position: new THREE.Vector3(3, 1.3, 0) },
-  { element: document.getElementById('leaveButton'), position: new THREE.Vector3(-90, 1.5, 1) },
-  { element: document.getElementById('shopButton'), position: new THREE.Vector3(-1, 1.3, 0) }
+  { element: document.getElementById('potButton2'), position: new THREE.Vector3(2, 0.7, 0) },
+  { element: document.getElementById('potButton1'), position: new THREE.Vector3(-0.9, 0.9, 0) },
+  { element: document.getElementById('posterButton'), position: new THREE.Vector3(-2, 1.3, 0) },
+  { element: document.getElementById('leaveButton'), position: new THREE.Vector3(2.9, 1.8, 1) },
+  { element: document.getElementById('shopButton'), position: new THREE.Vector3(0, 1.4, 0) }
 ];
 const mouse = new THREE.Vector2();
 
@@ -59,6 +59,12 @@ button.addEventListener("click", () => {
 introVideo.addEventListener("ended", () => {
   videoOverlay.style.display = "none";
 });
+
+
+function frontPage(){
+
+  startPage.style.display = "none";
+}
 
 init();
 
@@ -89,7 +95,7 @@ function init() {
     0.1,
     2000
   );
-  camera.position.set(5.04, 1.03, -1.53);
+  camera.position.set(1.04, 1.03, 4.53);
   
 
   camera.lookAt(targetLookAt2);
@@ -110,7 +116,7 @@ function init() {
       model = gltf.scene;
       model.traverse((child) => {
         if (child.isMesh) {
-          console.log(child.name); // 输出模型名称到控制台
+          // console.log(child.name); // 输出模型名称到控制台
           child.castShadow = true;
           child.receiveShadow = true;
           objects.push(child); // Add mesh to objects array
@@ -191,13 +197,13 @@ function updateButtonPositions() {
     };
 
     if (button.element.id === 'leaveButton') {
-      const customOffset = { x: 550, y: 0 };  // 自定义偏移值
+      const customOffset = { x: 0, y: 0 };  // 自定义偏移值
       buttonPosition.x += customOffset.x;
       buttonPosition.y += customOffset.y;
     }
 
     if (button.element.id === 'potButton2') {
-      const customOffset = { x: 100, y: 0 };  // 自定义偏移值
+      const customOffset = { x: 0, y: 0 };  // 自定义偏移值
       buttonPosition.x += customOffset.x;
       buttonPosition.y += customOffset.y;
     }
@@ -217,28 +223,7 @@ function onWindowResize() {
   composer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// function onMouseClick(event) {
-//   // Normalize mouse coordinates to [-1, 1]
-//   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-//   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-//   // Update the picking ray with the camera and mouse position
-//   raycaster.setFromCamera(mouse, camera);
-
-//   // Calculate objects intersecting the picking ray
-//   const intersects = raycaster.intersectObjects(objects);
-
-//   if (intersects.length > 0) {
-//     const intersectedObject = intersects[0].object;
-//     console.log(intersectedObject); // 输出被点击对象的名称
-//     // Check if the clicked object is the specific model
-//     if (intersectedObject.name === 'zhuozil') {
-//       // alert("clicked");
-//       showInfoDiv(camera);
-//     }
-//   }
-  
-// }
 
 function onMouseMove(event) {
 
@@ -252,23 +237,6 @@ document.addEventListener('mousemove', onMouseMove, false);
 
 
 
-
-
-
-
-
-// function onMouseMove( event ) {
-
-//   var mouseX = 0;
-// var mouseY = 0;
-// var scale = 1;
-//     mouseX = - ( event.clientX / renderer.domElement.clientWidth ) * 2 + 1;
-//     mouseY = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-
-//     camera.rotation.x = mouseY / scale;
-//     camera.rotation.y = mouseX / scale;
-
-// }
 
 function animate() {
   requestAnimationFrame(animate);
