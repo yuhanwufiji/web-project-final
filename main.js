@@ -9,7 +9,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
 import { gsap } from "gsap/gsap-core";
-import { showInfoDiv } from "./showInfoDiv.js"; // 导入 showInfoDiv 函数
+import { openPopup } from './popup.js';
 import {
   PerspectiveCameraForResizableWindow,
   handleCameraRotation,
@@ -17,6 +17,12 @@ import {
 } from "./CameraWithMouseRotation.js";
 import CameraOrientationState from "./CameraOrientationState.js";
 import { PI } from "three/examples/jsm/nodes/Nodes.js";
+// main.js
+// import { openPopup } from './popup.js';
+// window.openPopup = openPopup;
+
+// import { closePopup } from './popup.js';
+// window.closePopup = closePopup;
 
 let scene, camera, renderer, composer, model, controls, raycaster;
 const objects = [];
@@ -56,6 +62,24 @@ const buttons = [
 ];
 const mouse = new THREE.Vector2();
 
+shopButton.addEventListener("click", () => {
+  openPopup('./overlay.html');  // 调用 openPopup 函数
+});
+
+potButton1.addEventListener("click", () => {
+  openPopup('./hotpot.html');  // 调用 openPopup 函数
+});
+
+potButton2.addEventListener("click", () => {
+  openPopup('./overlay.html');  // 调用 openPopup 函数
+});
+
+posterButton.addEventListener("click", () => {
+  openPopup('./poster.html');  // 调用 openPopup 函数
+});
+
+
+
 window.addEventListener("load", () => {
   // Notify iframe to start loading
 });
@@ -72,13 +96,13 @@ button.addEventListener("click", () => {
   startPage.style.display = "none";
   videoOverlay.style.display = "flex";
   introVideo.play();
-  // threeContainer.style.display = "flex";
+  threeContainer.style.display = "flex";
 });
 
 leaveButton.addEventListener("click", () => {
   startPage.style.display = "flex";
   threeContainer.style.display = "none";
-  startPage.style.opacity = 0;
+  // startPage.style.opacity = 100;
   // 使用 GSAP 让元素淡入显示
   gsap.to(startPage, { duration: 1, opacity: 1, ease: "power2.inOut" });
 });
@@ -101,7 +125,7 @@ function init() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 使用柔和阴影
   renderer.toneMapping = THREE.ReinhardToneMapping; // 设置色调映射
   renderer.toneMappingExposure = 10; // 增加曝光
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  //renderer.outputEncoding = THREE.sRGBEncoding;
   threeContainer.appendChild(renderer.domElement);
   const targetLookAt2 = new THREE.Vector3(-2.3, 1, -0.7);
 

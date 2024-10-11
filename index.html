@@ -10,11 +10,11 @@
       href="https://fonts.googleapis.com/css2?family=Ultra&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
 
     <!-- 这边是弹出层的style和js code -->
-    <script src="popup.js"></script>
-    <script type="module" src="./main.js"></script>
+
+    <script src="./main.js" type="module" ></script>
     <style>
       .overlay {
         display: none;
@@ -153,10 +153,10 @@
 
 
     <div id="three-wrapper">
-    <button id="shopButton" onclick="openPopup('overlay.html')"></button>
-    <button id="potButton1" onclick="openPopup('hotpot.html')"></button>
-    <button id="posterButton" onclick="openPopup('poster.html')"></button>
-    <button id="potButton2" onclick="openPopup('overlay.html')"></button>
+    <button id="shopButton"></button>
+    <button id="potButton1"></button>
+    <button id="posterButton"></button>
+    <button id="potButton2"></button>
     <button id="leaveButton"></button>
 
     <div class="three-container" id="three-container"></div>
@@ -164,6 +164,6 @@
     <!-- <script type="module" src="./startpage.js"></script> -->
     </div>
 
-    <script src="video-loader.js"></script>
+    <script src="./video-loader.js" type="module"></script>
   </body>
 </html>

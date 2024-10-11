@@ -136,7 +136,7 @@ button {
   background: transparent no-repeat;
   background-size: contain;
   background-position: right center;
-  background-image: url(bg.jpg);
+  background-image: url('/bg.jpg');
   border-radius: 7px;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.1));
@@ -340,7 +340,7 @@ button {
 
 
 #shopButton{
-  background-image: url('shop.gif');
+  background-image: url('/shop.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -352,7 +352,7 @@ button {
 }
 
 #shopButton:hover{
-  background-image: url('shop.png');
+  background-image: url('/shop.png');
   
   background-size: contain;
  
@@ -360,7 +360,7 @@ button {
 }
 
 #potButton1{
-  background-image: url('go.gif');
+  background-image: url('/go.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -370,11 +370,11 @@ button {
 }
 
 #potButton1:hover{
-  background-image: url('go.png');
+  background-image: url('/go.png');
 }
 
 #posterButton{
-  background-image: url('go.gif');
+  background-image: url('/go.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -385,12 +385,12 @@ button {
 
 #posterButton:hover{
   
-  background-image: url('go.png');
+  background-image: url('/go.png');
 }
 
 
 #leaveButton{
-  background-image: url('exit.gif');
+  background-image: url('/exit.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -401,13 +401,13 @@ button {
 }
 
 #leaveButton:hover{
-  background-image: url('exit.png');
+  background-image: url('/exit.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 #potButton2{
-  background-image: url('go.gif');
+  background-image: url('/go.gif');
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -418,7 +418,7 @@ button {
 }
 
 #potButton2:hover{
-  background-image: url('go.png');
+  background-image: url('/go.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
