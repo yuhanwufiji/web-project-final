@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persimmons</title>
+    <style>
+          @import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
+
+        @import url('https://fonts.googleapis.com/css2?family=Ultra&family=Roboto+Mono&display=swap');
+
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgba(0, 0, 0, 0.555);
+        }
+        .container {
+            background: url(./img/bg.png) rgba(211, 211, 211, 0) 100% / cover no-repeat;
+            border-radius: 7px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 783px;
+            height: 615px;
+            padding: 20px;
+            position: relative;
+            text-align: right;
+        }
+        .container h1 {
+            /* width: 346px;
+            height: 46.5px; */
+            position: relative;
+            top: 10px; left: -30px;
+            font-family: 'Ultra', serif;
+            font-size: 50px;
+            color: #333;
+            margin: 0;
+        }
+        .container .description {
+            font-size: 16px;
+            color: #666;
+            margin: 10px 0;
+        }
+        .persimmon-images {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        .persimmon-images img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .circle {
+            width: 300px;
+            height: 300px;
+            background-color: #ffa500;
+            border-radius: 50%;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+        .attributes {
+            font-family: 'Roboto Mono', monospace;
+            margin: 0px 0;
+        }
+        .attribute1 {
+            
+            width: 330px;
+            height: 110px;
+            position: relative;
+            top: -210px; left: 450px;
+            text-align: right;
+            margin-bottom: 20px;
+            
+        }
+
+        .attribute2 {
+            width: 600px;
+            height: 110px;
+            position: relative;
+            top: -200px; left: 180px;
+            text-align: right;
+            margin-bottom: 20px;
+            
+        }
+
+        .attribute3 {
+            width: 650px;
+            height: 70px;
+            position: relative;
+            top: -190px; left: 130px;
+            text-align: right;
+            margin-bottom: 20px;
+            
+        }
+        
+        .attributes h2 {
+            border: 1px solid #000000;
+            
+            font-family: 'Ultra', serif;
+            font-size: 20px;
+            color: #333;
+            margin: 0px;
+            display: inline-block;
+            background-color: #ffa500;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .attribute {
+            color: #413F39;
+
+            text-align: right;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 131%;
+            
+        }
+
+.description {
+position: relative;
+top: 30px; left: 450px;
+
+color: #413F39;
+
+text-align: left;
+font-family: 'Roboto Mono', monospace;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 131%;
+width: 322px;
+height: 300px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Persimmons</h1>
+        <p class="description">the sweet fruit of autumn and winter in China, are known as the "sunshine of fruits.</p>
+        <div class="persimmon-images">
+            <!-- <img src="shizi.png" alt="Persimmon 1"> -->
+            <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Diospyros_kaki_19zz.jpg" alt="Persimmon 2"> -->
+        </div>
+        <div class="circle"></div>
+        <div class="attributes">
+            <div class="attribute1">
+                <h2>Look</h2>
+                <p>Vibrant orange-red color and round adorable shape<br>they are a delight to the eyes</p>
+                <!-- <p>Vibrant orange-red color and round adorable shape. They are a delight to the eyes</p> -->
+            </div>
+            <div class="attribute2">
+                <h2>Nutrition</h2>
+                <p>They have a unique texture—smooth, delicate sweet but not cloying—and are rich in nutrients including vitamin C, fiber, and antioxidants.</p>
+            </div>
+            <div class="attribute3">
+                <h2>Taste</h2>
+                <p>Each bite is a taste of autumn, bringing the joy of harvest. Crisp and refreshing when eaten fresh, sweet as honey when ripe persimmons can also be made into dried persimmons, persimmon jam, and various other delicacies.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

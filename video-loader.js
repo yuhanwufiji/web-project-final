@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             mov: 'opening.mov'
         },
         'introVideo': {
-            webm: 'next.webm',
+            webm: 'output.webm',
             mov: 'output.mov'
         },
         'loadingVideo': {
