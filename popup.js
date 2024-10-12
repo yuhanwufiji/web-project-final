@@ -3,7 +3,7 @@ let overlayIframe = null;
 let closeButton = null;
 
 
-function openPopup(htmlFilePath) {
+export function openPopup(htmlFilePath) {
     // if (overlayIframe) {
     //     overlayIframe.style.display = 'block';
     //     overlayIframe.src = htmlFilePath; // Update the iframe source
@@ -23,6 +23,7 @@ function openPopup(htmlFilePath) {
 
     // Create close button
     closeButton = document.createElement('button');
+    closeButton.id = 'closeButton';
     closeButton.innerHTML = 'Close';
     closeButton.style.position = 'fixed';
     closeButton.style.top = '10px';
