@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path';
+import { permission } from 'process';
 
 export default defineConfig({
   base: './', // Ensure this matches your deployment environment
@@ -10,6 +11,7 @@ export default defineConfig({
         overlay: resolve(__dirname, 'overlay.html'),
         hotpot: resolve(__dirname, 'hotpot.html'), 
         model: resolve(__dirname, 'poster.html'),
+        permission: resolve(__dirname, 'Persimmons.html'),
       },
       output: {
         // Manually split chunks, separate large dependencies
