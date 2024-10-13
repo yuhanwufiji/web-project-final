@@ -1,17 +1,29 @@
 import { defineConfig } from 'vite'
+import { resolve } from 'path';
+import { permission } from 'process';
 
 export default defineConfig({
-  base: './', // 基础路径根据你的部署环境进行调整
+  base: './', // Ensure this matches your deployment environment
   build: {
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),    // Main entry point
+        overlay: resolve(__dirname, 'overlay.html'),
+        hotpot: resolve(__dirname, 'hotpot.html'), 
+        model: resolve(__dirname, 'poster.html'),
+        permission: resolve(__dirname, 'Persimmons.html'),
+      },
       output: {
-        // 手动拆分 chunk，将大的依赖分离出来，减少主文件的大小
+        // Manually split chunks, separate large dependencies
         manualChunks: {
-          vendor: ['three'], // 例如，将 three.js 打包到单独的 chunk 中
+          vendor: ['three'], // Example: pack three.js separately
         },
       },
     },
-    // 调整 chunk 大小警告限制，避免警告
-    chunkSizeWarningLimit: 1000, // 可以根据需要提高此值，默认500kB，这里设为1000kB
+    // Adjust chunk size warning limit
+    chunkSizeWarningLimit: 1000, // Increase this value as needed
   },
-})
+  server: {
+    compress: false,  // Disable Gzip compression
+  }
+});
