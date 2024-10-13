@@ -67,11 +67,11 @@ shopButton.addEventListener("click", () => {
 });
 
 potButton1.addEventListener("click", () => {
-  openPopup('./hotpot.html');  // 调用 openPopup 函数
+  openPopup('./Persimmons.html');  // 调用 openPopup 函数
 });
 
 potButton2.addEventListener("click", () => {
-  openPopup('./overlay.html');  // 调用 openPopup 函数
+  openPopup('./hotpot.html');  // 调用 openPopup 函数
 });
 
 posterButton.addEventListener("click", () => {
